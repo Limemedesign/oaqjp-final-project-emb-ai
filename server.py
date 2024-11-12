@@ -12,18 +12,21 @@ def emotionDetector():
 
     # Pass the text to the function and store the response
     response = emotion_detector(text_to_analyze)
-    
+
     dominant_emotion = response['dominant_emotion']
 
-    # Generate the formatted string
-    emotion_str = ', '.join([f"'{emotion}': {score}" for emotion, score in response.items()]) 
-    
-    response_message = (
-        f"For the given statement, the system response is {emotion_str}. "
-        f"The dominant emotion is {dominant_emotion}."
-    )
+    if dominant_emotion is None:
+        return "Invalid text! Please try again!."
+    else:
+        # Generate the formatted string
+        emotion_str = ', '.join([f"'{emotion}': {score}" for emotion, score in response.items()]) 
+        
+        response_message = (
+            f"For the given statement, the system response is {emotion_str}. "
+            f"The dominant emotion is {dominant_emotion}."
+        )
 
-    return response_message
+        return response_message
 
 
 @app.route("/")
